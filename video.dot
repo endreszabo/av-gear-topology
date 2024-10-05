@@ -1,0 +1,345 @@
+digraph {
+    rankdir="TB";
+
+    compound=true;
+    graph [fontsize=10 fontname="Verdana" compound=true fillcolor="#00000020" style=filled];
+    node[shape=record fontsize=10 fontname="Verdana" fillcolor="#ffffffc0" style=filled];
+    edge[color=blue];
+
+    /** unused BMD VideHub ports: cut and paste to its place if needed
+        "bmd_videohub_0_sdi_in_3" [label="VH IN 3",shape=ellipse];
+        "bmd_videohub_0_sdi_in_9" [label="VH IN 9",shape=ellipse];
+        "bmd_videohub_0_sdi_in_10" [label="VH IN 10",shape=ellipse];
+        "bmd_videohub_0_sdi_in_11" [label="VH IN 11",shape=ellipse];
+        "bmd_videohub_0_sdi_in_12" [label="VH IN 12",shape=ellipse];
+        "bmd_videohub_0_sdi_out_3" [label="VH OUT 3",shape=ellipse];
+        "bmd_videohub_0_sdi_out_5" [label="VH OUT 5",shape=ellipse];
+        "bmd_videohub_0_sdi_out_6" [label="VH OUT 6",shape=ellipse];
+        "bmd_videohub_0_sdi_out_9" [label="VH OUT 9",shape=ellipse];
+        "bmd_videohub_0_sdi_out_10" [label="VH OUT 10",shape=ellipse];
+        "bmd_videohub_0_sdi_out_12" [label="VH OUT 12",shape=ellipse];
+    */
+
+    subgraph cluster_wz {
+        label = "TV in WZ"
+
+        subgraph cluster_firetv_wz {
+            fillcolor="#00ffff80";
+            label = "FireTV WZ";
+            "firetv_wz_hdmi_out" [label="HDMI OUT"];
+        }
+
+        subgraph cluster_hdmi_splitter_wz {
+            fillcolor="#00ffff80";
+            label = "HDMI Splitter WZ";
+            "hdmi_splitter_wz_hdmi_in" [label="HDMI IN"];
+            "hdmi_splitter_wz_hdmi_out_1" [label="HDMI OUT 1"];
+            "hdmi_splitter_wz_hdmi_out_2" [label="HDMI OUT 2"];
+        }
+        subgraph cluster_bmd_bidi_converter_wz {
+            label = "BMD BiDi Converter WZ";
+            fillcolor="#00ffff80";
+            "bmd_bidi_converter_wz_hdmi_in" [label="HDMI IN"];
+            "bmd_bidi_converter_wz_hdmi_out" [label="HDMI OUT"];
+            "bmd_bidi_converter_wz_sdi_in" [label="SDI IN",shape=ellipse];
+            "bmd_bidi_converter_wz_sdi_out" [label="SDI OUT",shape=ellipse];
+        }
+        subgraph cluster_tv_wz {
+            fillcolor="#00ffff80";
+            label = "TV WZ";
+            "tv_wz_hdmi_in_2" [label="HDMI2"];
+        }
+        "bmd_videohub_0_sdi_out_11" [label="VH OUT 11",shape=ellipse];
+
+        firetv_wz_hdmi_out -> hdmi_splitter_wz_hdmi_in [color=green];
+
+        hdmi_splitter_wz_hdmi_out_1 -> bmd_bidi_converter_wz_hdmi_in [color=green];
+        bmd_videohub_0_sdi_out_11 -> bmd_bidi_converter_wz_sdi_in [color=red];
+        bmd_bidi_converter_wz_hdmi_out -> tv_wz_hdmi_in_2 [color=yellow];
+    }
+        subgraph cluster_z3tv {
+            label = "TV in Z3"
+            subgraph cluster_firetv_z3 {
+                fillcolor="#00ffff20";
+                style=filled;
+                label = "FireTV Z3";
+                "firetv_z3_hdmi_out" [label="HDMI OUT"];
+            }
+            subgraph cluster_tv_z3 {
+                fillcolor="#ff00ff20";
+                style=filled;
+                label = "TV Z3";
+                "tv_z3_hdmi_in" [label="HDMI IN",fillcolor=white];
+            }
+
+            subgraph cluster_hdmi_splitter_z3tv {
+                fillcolor="#00ffff80";
+                style=filled;
+                label = "HDMI Splitter Z3";
+                "hdmi_splitter_z3tv_hdmi_in" [label="HDMI IN"];
+                "hdmi_splitter_z3tv_hdmi_out_1" [label="HDMI OUT 1"];
+                "hdmi_splitter_z3tv_hdmi_out_2" [label="HDMI OUT 2"];
+            }
+
+            subgraph cluster_bmd_bidi_converter_z3tv {
+                fillcolor="#00ffff80";
+                style=filled;
+                label = "BMD BiDi Converter Z3";
+                "bmd_bidi_converter_z3tv_hdmi_in" [label="HDMI IN"];
+                "bmd_bidi_converter_z3tv_hdmi_out" [label="HDMI OUT"];
+                "bmd_bidi_converter_z3tv_sdi_in" [label="SDI IN",shape=ellipse];
+                "bmd_bidi_converter_z3tv_sdi_out" [label="SDI OUT",shape=ellipse];
+            }
+            "bmd_videohub_0_sdi_in_7" [label="VH IN 7",shape=ellipse];
+            "bmd_videohub_0_sdi_out_7" [label="VH OUT 7",shape=ellipse];
+
+            firetv_z3_hdmi_out -> hdmi_splitter_z3tv_hdmi_in [color=green];
+
+            hdmi_splitter_z3tv_hdmi_out_1 -> bmd_bidi_converter_z3tv_hdmi_in [color=green];
+
+            bmd_bidi_converter_z3tv_sdi_out -> bmd_videohub_0_sdi_in_7 [color=red];
+            bmd_bidi_converter_z3tv_hdmi_out -> tv_z3_hdmi_in [color=yellow];
+            bmd_videohub_0_sdi_out_7 -> bmd_bidi_converter_z3tv_sdi_in [color=red];
+        }
+}
+digraph {
+    rankdir="TB";
+
+    compound=true;
+    graph [fontsize=10 fontname="Verdana" compound=true fillcolor="#00000020" style=filled];
+    node[shape=record fontsize=10 fontname="Verdana" fillcolor="#ffffffc0" style=filled];
+    edge[color=blue];
+
+    subgraph cluster_av {
+        label="Recording gear";
+        subgraph cluster_t {
+            label = "Cam w/ Teleprompter";
+            fillcolor="#ff000030";
+            "cam_hdmi_out" [label="CAM HDMI OUT"];
+            "tpr_hdmi_in" [label="TPR HDMI IN"];
+        }
+        subgraph cluster_bmd_sdi_bidi_0 {
+            label = "BMD BiDi Converter @ CAM";
+            fillcolor="#ff000030";
+            "bmd_sdi_bidi_0_hdmi_in" [label="HDMI IN"];
+            "bmd_sdi_bidi_0_hdmi_out" [label="HDMI OUT"];
+            "bmd_sdi_bidi_0_sdi_in" [label="SDI IN",shape=ellipse];
+            "bmd_sdi_bidi_0_sdi_out" [label="SDI OUT",shape=ellipse];
+        }
+        subgraph cluster_bmd_va_0 {
+        label = "BMD VideoAssist 0"
+            fillcolor="#00ff0050";
+            "bmd_sdi_va_0_hdmi_in" [label="HDMI IN"];
+            "bmd_sdi_va_0_hdmi_out" [label="HDMI OUT"];
+            "bmd_sdi_va_0_sdi_in" [label="SDI IN",shape=ellipse];
+            "bmd_sdi_va_0_sdi_out" [label="SDI OUT",shape=ellipse];
+        }
+        subgraph cluster_multiview_monitor_0 {
+            label = "MultiView Monitor 0";
+            fillcolor="#ff000030";
+            "multiview_monitor_0_hdmi_in_1" [label="HDMI IN 1"];
+            "multiview_monitor_0_hdmi_in_2" [label="HDMI IN 2"];
+        }
+        subgraph cluster_rpi4b_0 {
+            label = "Raspberry PI 4b 0";
+            "rpi4b_0_hdmi_out_1" [label="HDMI OUT 1"];
+            "rpi4b_0_hdmi_out_2" [label="HDMI OUT 2"];
+        }
+        subgraph cluster_hdmi_splitter_cam {
+            label = "HDMI Splitter cam";
+            fillcolor="#ff000030";
+            "hdmi_splitter_cam_hdmi_in" [label="HDMI IN"];
+            "hdmi_splitter_cam_hdmi_out_1" [label="HDMI OUT 1"];
+            "hdmi_splitter_cam_hdmi_out_2" [label="HDMI OUT 2"];
+        }
+
+        "bmd_atem_0_hdmi_in_3" [label="ATEM HDMI IN 3"];
+        "bmd_videohub_0_sdi_in_4" [label="VH IN 4",shape=ellipse];
+        "bmd_videohub_0_sdi_out_4" [label="VH OUT 4",shape=ellipse];
+        rpi4b_0_hdmi_out_1 -> bmd_atem_0_hdmi_in_3 [color=green];
+
+        subgraph cluster_bmd_sdi2hdmi_converter_0 {
+            label = "BMD SDI->HDMI Converter 0";
+            fillcolor="#ff000030";
+            "bmd_sdi2hdmi_converter_0_hdmi_out" [label="HDMI OUT"];
+            "bmd_sdi2hdmi_converter_0_sdi_in" [label="SDI IN",shape=ellipse];
+            "bmd_sdi2hdmi_converter_0_sdi_thru" [label="SDI THRU"];
+        }
+
+        "bmd_atem_0_hdmi_in_4" [label="ATEM HDMI IN 4"];
+
+        cam_hdmi_out -> hdmi_splitter_cam_hdmi_in [color=red];
+
+        hdmi_splitter_cam_hdmi_out_1 -> bmd_sdi_bidi_0_hdmi_in [color=red];
+        hdmi_splitter_cam_hdmi_out_2 -> bmd_atem_0_hdmi_in_4 [color=red];
+        // bmd_sdi_va_0_hdmi_out -> bmd_atem_0_hdmi_in_4;
+        bmd_sdi_bidi_0_hdmi_out -> tpr_hdmi_in [color=red];
+        bmd_sdi_bidi_0_sdi_out -> bmd_sdi_va_0_sdi_in [color=red];
+        bmd_videohub_0_sdi_out_4 -> bmd_sdi_bidi_0_sdi_in [color=red];
+        bmd_sdi_va_0_sdi_out -> bmd_videohub_0_sdi_in_4 [color=red];
+
+        "bmd_videohub_0_sdi_out_8" [label="VH OUT 8",shape=ellipse];
+
+        bmd_videohub_0_sdi_out_8 -> bmd_sdi2hdmi_converter_0_sdi_in [color=red];
+        bmd_sdi2hdmi_converter_0_hdmi_out -> multiview_monitor_0_hdmi_in_1 [color=red];
+
+        rpi4b_0_hdmi_out_2 -> multiview_monitor_0_hdmi_in_2 [color=green];
+    }
+}
+
+digraph {
+    rankdir="TB";
+
+    compound=true;
+    graph [fontsize=10 fontname="Verdana" compound=true fillcolor="#00000020" style=filled];
+    node[shape=record fontsize=10 fontname="Verdana" fillcolor="#ffffffc0" style=filled];
+    edge[color=blue];
+    subgraph cluster_rack {
+        label="Rack";
+        subgraph cluster_x {
+            label = "x";
+            fillcolor="#00ff0030";
+            "x_hdmi_out_1" [label="HDMI OUT"];
+            "x_dp_out_1" [label="DP OUT"];
+        }
+        subgraph cluster_x2 {
+            label = "x2";
+            fillcolor="#0000ff30";
+            "x2_hdmi_out_1" [label="HDMI OUT"];
+            "x2_dp_out_1" [label="DP OUT"];
+        }
+        "matrix_in_1" [label="Martix HDMI IN 1"];
+        "matrix_in_2" [label="Martix HDMI IN 2"];
+        "matrix_in_3" [label="Martix HDMI IN 3"];
+        "matrix_in_4" [label="Martix HDMI IN 4"];
+        "matrix_out_a" [label="Martix HDMI OUT A"];
+        "matrix_out_b" [label="Martix HDMI OUT B"];
+        subgraph cluster_hdmi_splitter_0 {
+            fillcolor="#ffff0030";
+            label = "HDMI Splitter 0";
+            "hdmi_splitter_0_hdmi_in" [label="HDMI IN"];
+            "hdmi_splitter_0_hdmi_out_1" [label="HDMI OUT 1"];
+            "hdmi_splitter_0_hdmi_out_2" [label="HDMI OUT 2"];
+        }
+        subgraph cluster_hdmi_splitter_1 {
+            fillcolor="#ffff0030";
+            label = "HDMI Splitter 1";
+            "hdmi_splitter_1_hdmi_in" [label="HDMI IN"];
+            "hdmi_splitter_1_hdmi_out_1" [label="HDMI OUT 1"];
+            "hdmi_splitter_1_hdmi_out_2" [label="HDMI OUT 2"];
+        }
+        "bmd_atem_0_hdmi_in_1" [label="ATEM HDMI IN 1"];
+        "bmd_atem_0_hdmi_in_2" [label="ATEM HDMI IN 2"];
+        x2_hdmi_out_1 -> matrix_in_1 [color=green];
+        x2_dp_out_1 -> matrix_in_2 [color=green];
+        x_hdmi_out_1 -> matrix_in_3 [color=green];
+        x_dp_out_1 -> matrix_in_4 [color=green];
+        "bmd_atem_0_hdmi_out" [label="ATEM HDMI OUT"];
+
+        subgraph cluster_bmd_hdmi2sdi_converter_1 {
+            label = "BMD HDMI->SDI Converter @ATEM";
+            fillcolor="#ff000030";
+            "bmd_hdmi2sdi_converter_atem_hdmi_in" [label="HDMI IN"];
+            "bmd_hdmi2sdi_converter_atem_sdi_out_1" [label="SDI OUT 1",shape=ellipse];
+            "bmd_hdmi2sdi_converter_atem_sdi_out_2" [label="SDI OUT 2",shape=ellipse];
+        }
+
+        bmd_atem_0_hdmi_out -> bmd_hdmi2sdi_converter_atem_hdmi_in [color=yellow];
+        bmd_hdmi2sdi_converter_atem_sdi_out_1 -> bmd_videohub_0_sdi_in_8 [color=red];
+        "bmd_videohub_0_sdi_in_8" [label="VH IN 8",shape=ellipse];
+
+    }
+
+    subgraph cluster_desk {
+        label="Desk";
+        subgraph cluster_bmd_bidi_converter_1 {
+            label = "BMD BiDi Converter @ Monitor Dell Top";
+            "bmd_bidi_converter_1_hdmi_in" [label="HDMI IN"];
+            "bmd_bidi_converter_1_hdmi_out" [label="HDMI OUT"];
+            "bmd_bidi_converter_1_sdi_in" [label="SDI IN",shape=ellipse];
+            "bmd_bidi_converter_1_sdi_out" [label="SDI OUT",shape=ellipse];
+        }
+        subgraph cluster_bmd_bidi_converter_2 {
+            label = "BMD BiDi Converter @ Monitor Dell Bottom";
+            "bmd_bidi_converter_2_hdmi_in" [label="HDMI IN"];
+            "bmd_bidi_converter_2_hdmi_out" [label="HDMI OUT"];
+            "bmd_bidi_converter_2_sdi_in" [label="SDI IN",shape=ellipse];
+            "bmd_bidi_converter_2_sdi_out" [label="SDI OUT",shape=ellipse];
+        }
+
+        subgraph cluster_dell_monitor_top {
+            label = "Dell Monitor top";
+            "dell_monitor_top_hdmi_in" [label="HDMI IN"];
+            "dell_monitor_top_dp_in" [label="DP IN"];
+        }
+        subgraph cluster_dell_monitor_bottom {
+            label = "Dell Monitor bottom";
+            "dell_monitor_bottom_hdmi_in" [label="HDMI IN"];
+            "dell_monitor_bottom_dp_in" [label="DP IN"];
+        }
+        "bmd_videohub_0_sdi_in_1" [label="VH IN 1",shape=ellipse];
+        "bmd_videohub_0_sdi_in_2" [label="VH IN 2",shape=ellipse];
+        "bmd_videohub_0_sdi_out_1" [label="VH OUT 1",shape=ellipse];
+        "bmd_videohub_0_sdi_out_2" [label="VH OUT 2",shape=ellipse];
+        matrix_out_a -> hdmi_splitter_0_hdmi_in [color=green];
+        hdmi_splitter_0_hdmi_out_1 -> bmd_atem_0_hdmi_in_1 [color=green];
+        hdmi_splitter_0_hdmi_out_2 -> bmd_bidi_converter_1_hdmi_in [color=green];
+
+        matrix_out_b -> hdmi_splitter_1_hdmi_in [color=green];
+        hdmi_splitter_1_hdmi_out_1 -> bmd_atem_0_hdmi_in_2 [color=green];
+        hdmi_splitter_1_hdmi_out_2 -> bmd_bidi_converter_2_hdmi_in [color=green];
+
+        bmd_videohub_0_sdi_out_1 -> bmd_bidi_converter_1_sdi_in [color=red];
+        bmd_bidi_converter_1_hdmi_out -> dell_monitor_top_hdmi_in [color=yellow];
+        bmd_bidi_converter_1_sdi_out -> bmd_videohub_0_sdi_in_1 [color=red];
+
+        bmd_videohub_0_sdi_out_2 -> bmd_bidi_converter_2_sdi_in [color=red];
+        bmd_bidi_converter_2_hdmi_out -> dell_monitor_bottom_hdmi_in [color=yellow];
+        bmd_bidi_converter_2_sdi_out -> bmd_videohub_0_sdi_in_2 [color=red];
+    }
+
+}
+digraph {
+    rankdir="TB";
+
+    compound=true;
+    graph [fontsize=10 fontname="Verdana" compound=true fillcolor="#00000020" style=filled];
+    node[shape=record fontsize=10 fontname="Verdana" fillcolor="#ffffffc0" style=filled];
+    edge[color=blue];
+    subgraph cluster_floor {
+        label = "Stuff on the floor";
+        subgraph cluster_kg_0 {
+            fillcolor="#ff00ff20";
+            label = "K G 0";
+            "kg_0_hdmi_out" [label="HDMI OUT"];
+        }
+        subgraph cluster_bmd_hdmi2sdi_converter_1 {
+            label = "BMD HDMI->SDI Converter 1";
+            fillcolor="#ff00ff20";
+            "bmd_hdmi2sdi_converter_1_hdmi_in" [label="HDMI IN"];
+            "bmd_hdmi2sdi_converter_1_sdi_out_1" [label="SDI OUT 1",shape=ellipse];
+            "bmd_hdmi2sdi_converter_1_sdi_out_2" [label="SDI OUT 2",shape=ellipse];
+        }
+        kg_0_hdmi_out -> bmd_hdmi2sdi_converter_1_hdmi_in [color=green];
+        bmd_hdmi2sdi_converter_1_sdi_out_1 -> bmd_videohub_0_sdi_in_6 [color=red];
+
+        subgraph cluster_ps5_0 {
+            fillcolor="#ffff0010";
+            label = "PlayStation 5 0";
+            "ps5_0_hdmi_out" [label="HDMI OUT"];
+        }
+        subgraph cluster_bmd_hdmi2sdi_converter_0 {
+            label = "BMD HDMI->SDI Converter 0";
+            fillcolor="#ffff0010";
+            "bmd_hdmi2sdi_converter_0_hdmi_in" [label="HDMI IN"];
+            "bmd_hdmi2sdi_converter_0_sdi_out_1" [label="SDI OUT 1",shape=ellipse];
+            "bmd_hdmi2sdi_converter_0_sdi_out_2" [label="SDI OUT 2",shape=ellipse];
+        }
+
+        ps5_0_hdmi_out -> bmd_hdmi2sdi_converter_0_hdmi_in [color=green];
+        bmd_hdmi2sdi_converter_0_sdi_out_1 -> bmd_videohub_0_sdi_in_5 [color=red];
+
+        "bmd_videohub_0_sdi_in_5" [label="VH IN 5",shape=ellipse];
+        "bmd_videohub_0_sdi_in_6" [label="VH IN 6",shape=ellipse];
+    }
+}
